@@ -1,2 +1,4 @@
 __pycache__/
 *.py[cod]
+/hello-out.html
+/hello-out.bmp

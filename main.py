@@ -31,7 +31,7 @@ def main():
     current_time = pacific_now.strftime("%-I:%M %p") # e.g., 3:45 PM
 
     # render muni stop
-    context = {
+    formattedTimes = {
         "times_L_zoo": get_formatted_arrival_times(get_muni_stop_data(STOP_ID_L_OWL_WESTBOUND)),
         "times_L_em": get_formatted_arrival_times(get_muni_stop_data(STOP_ID_L_OWL_EASTBOUND)),
         "times_28_fw": get_formatted_arrival_times(get_muni_stop_data(STOP_ID_28_NORTHBOUND)),
@@ -39,17 +39,20 @@ def main():
         "current_time": current_time  
     }
 
-    # context = {
+    # formattedTimes = {
     #     "times_28_fw": "3, 6, 9",
     #     "times_28_dc": "2🚀, 5, 10🚀",
     #     "times_L_em": "1🦉,7,13🦉",
     #     "times_L_zoo": "4,8,12"
     # }
 
-    render_muni_times_to_html(context)
+    # Enable debug mode if not on a Pi
+    debug = not on_raspberry_pi
 
-    if on_raspberry_pi:
-        display_image('hello.bmp')
+    image = render_muni_times_to_html(formattedTimes, debug=debug)
+
+    if on_raspberry_pi and image:
+        display_image(image)
 
 # Loop forever on Pi, just once otherwise
 if on_raspberry_pi:

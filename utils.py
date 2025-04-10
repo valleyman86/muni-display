@@ -92,30 +92,37 @@ def html_to_image_with_chromium_from_file(html_file_path, output_image='hello.pn
     image = Image.open(output_image).convert('1', dither=Image.NONE)
     image.save('hello.bmp')
 
-def convert_html_to_image_weasy(input_html="hello-out.html", output_image="hello.bmp"):
-    """
-    Converts an HTML file to an image using WeasyPrint + Pillow.
+from weasyprint import HTML
+from PIL import Image
+from pdf2image import convert_from_bytes
 
-    :param input_html: Path to input HTML file
-    :param output_image: Output PNG or BMP image path
+def convert_html_to_image_weasy(html_content, debug=False, debug_path="hello-out"):
+    """
+    Converts raw HTML content to a Pillow image using WeasyPrint and pdf2image.
+
+    :param html_content: HTML as a string
+    :param debug: If True, saves the output BMP image
+    :param debug_path: Base name used for debug image file
+    :return: PIL.Image.Image object or None on failure
     """
     try:
-        # Render HTML to PDF in memory
-        pdf_bytes = HTML(input_html).write_pdf()
+        # Convert HTML string to PDF bytes in memory
+        pdf_bytes = HTML(string=html_content).write_pdf()
 
-        # Convert first PDF page to PNG using Pillow (via pdf2image or similar)
-        from pdf2image import convert_from_bytes
+        # Convert PDF to image
         images = convert_from_bytes(pdf_bytes)
         if images:
             image = images[0].resize((800, 480)).convert("1", dither=Image.NONE)
 
-            #todo Joey: Do not save the image unless in a debug state and try to just use memory
-            image.save(output_image, format="BMP")
+            if debug:
+                image.save(f"{debug_path}.bmp", format="BMP")
+                print(f"🖼️  Saved debug BMP: {debug_path}.bmp")
 
-            print(f"✅ Image saved to: {output_image}")
+            return image
         else:
             print("❌ No image rendered from HTML.")
+            return None
 
     except Exception as e:
         print(f"❌ Conversion failed: {e}")
-        print("❌ Failed to render image:", e)
+        return None

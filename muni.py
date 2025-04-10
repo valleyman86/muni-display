@@ -60,17 +60,25 @@ def get_formatted_arrival_times(stops, max_visits=3):
 
     return ", ".join(arrival_entries) if arrival_entries else "No arrivals"
 
-def render_muni_times_to_html(formattedTimes, output_html='hello-out.html', template_name='hello.html'):
-    # Set up Jinja2 environment and render
+def render_muni_times_to_html(formattedTimes, template_name='hello.html', debug=False):
+    """
+    Renders Muni times into HTML and passes to image renderer.
+
+    :param formattedTimes: dict of data to render into template
+    :param template_name: Jinja template file
+    :param debug: If True, saves rendered HTML and BMP image to disk
+    :return: PIL.Image.Image object or None
+    """
     env = Environment(loader=FileSystemLoader('.'))
     template = env.get_template(template_name)
-    output = template.render(**formattedTimes)
+    html_output = template.render(**formattedTimes)
 
-    #todo Joey: Do not save the html unless in a debug state and try to just use memory    
-    with open(output_html, "w") as f:
-        f.write(output)
+    if debug:
+        with open("hello-out.html", "w") as f:
+            f.write(html_output)
+        print("📝 Saved debug HTML: hello-out.html")
 
-    print("Rendered HTML:", formattedTimes)
+    print("🧠 Rendered HTML context:", formattedTimes)
 
-    # Convert to image
-    convert_html_to_image_weasy(output_html)
+    # Convert to image in-memory
+    return convert_html_to_image_weasy(html_output, debug=debug)
