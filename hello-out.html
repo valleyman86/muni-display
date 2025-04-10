@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    @page {
+        size: 800px 480px;
+        margin: 0;
+    }
+    body {
+      font-family: 'Arial', sans-serif;
+      font-weight: bold;
+      background-color: white;
+      color: black;
+      position: relative;
+    }
+
+    .last-updated {
+      position: absolute;
+      top: 20px;
+      right: 36px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 36px auto;
+    }
+
+    td {
+      border-top: 3px solid black;
+      border-bottom: 3px solid black;
+      padding: 20px 8px;
+      vertical-align: middle;
+    }
+
+    .no-right-border {
+      border-right: none;
+    }
+
+    .no-left-border {
+      border-left: none;
+    }
+
+    .cell-content {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .circle {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background-color: black;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .circle span {
+      color: white;
+      font-size: 48px;
+      font-weight: bold;
+      font-family: 'Helvetica', Arial, sans-serif;
+      line-height: 1;
+      transform: translateY(5px);
+      display: inline-block;
+    }
+
+    .text-block {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .destination {
+      font-size: 30px;
+      font-weight: normal;
+      color: black;
+    }
+
+    .times {
+      font-size: 34px;
+      font-weight: bold;
+      color: black;
+      margin-top: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="last-updated">
+    Last Updated: 2:57 PM
+  </div>
+
+  <h2 style="text-align: center; font-size: 40px;">MUNI</h2>
+
+  <table>
+    <tr>
+      <td class="no-right-border">
+        <div class="cell-content">
+          <div class="circle"><span>28</span></div>
+          <div class="text-block">
+            <span class="destination">Fishermans Wharf</span>
+            <span class="times">3, 5, 11🚀</span>
+          </div>
+        </div>
+      </td>
+      <td class="no-left-border">
+        <div class="cell-content">
+          <div class="text-block">
+            <span class="destination">Daly City</span>
+            <span class="times">5, 9, 15</span>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="no-right-border">
+        <div class="cell-content">
+          <div class="circle"><span>L</span></div>
+          <div class="text-block">
+            <span class="destination">Embarcadero</span>
+            <span class="times">1, 10, 20</span>
+          </div>
+        </div>
+      </td>
+      <td class="no-left-border">
+        <div class="cell-content">
+          <div class="text-block">
+            <span class="destination">SF Zoo</span>
+            <span class="times">15, 21, 27</span>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
