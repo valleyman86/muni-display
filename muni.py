@@ -3,7 +3,7 @@ import json
 from types import SimpleNamespace
 from utils import *
 
-muniApiKey = "82491e7f-0a68-47fe-8284-43da4048c499"
+muniApiKey = os.getenv("MUNI_API_KEY")
 
 def get_muni_stop_data(stop):
     # Construct the API URL
