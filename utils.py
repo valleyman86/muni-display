@@ -112,7 +112,7 @@ def convert_html_to_image_weasy(html_content, debug=False, debug_path="hello-out
         # Convert PDF to image
         images = convert_from_bytes(pdf_bytes)
         if images:
-            image = images[0].resize((800, 480)).convert("1", dither=Image.NONE)
+            image = images[0].resize((480, 800)).convert("1", dither=Image.NONE)
 
             if debug:
                 image.save(f"{debug_path}.bmp", format="BMP")

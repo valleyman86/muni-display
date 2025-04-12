@@ -1,32 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <style>
     @page {
-        size: 800px 480px;
-        margin: 0;
+      size: 480px 800px;
+      margin: 0;
     }
+
     body {
       font-family: 'Arial', sans-serif;
       font-weight: bold;
       background-color: white;
       color: black;
       position: relative;
+      margin: 0;
     }
 
     .last-updated {
-      position: absolute;
-      top: 20px;
-      right: 36px;
+      position: static;
       font-size: 20px;
       font-weight: bold;
+      text-align: center;
+      margin: 8px 0 0px;
     }
 
     table {
       border-collapse: collapse;
       width: 100%;
-      margin: 36px auto;
+      margin: 20px auto;
     }
 
     td {
@@ -87,56 +90,48 @@
       color: black;
       margin-top: 6px;
     }
+
+    .table-wrapper {
+      padding: 0 16px;
+      /* adjust as needed for spacing */
+    }
   </style>
 </head>
+
 <body>
+
+  <h2 style="text-align: center; font-size: 40px; font-weight: bold; margin: 16px 0 2px;">MUNI</h2>
 
   <div class="last-updated">
     Last Updated: {{ current_time }}
   </div>
 
-  <h2 style="text-align: center; font-size: 40px;">MUNI</h2>
-
-  <table>
-    <tr>
-      <td class="no-right-border">
-        <div class="cell-content">
-          <div class="circle"><span>28</span></div>
-          <div class="text-block">
-            <span class="destination">Fishermans Wharf</span>
-            <span class="times">{{ times_28_fw }}</span>
+  <div class="table-wrapper">
+    <table>
+      <tr>
+        <td class="no-right-border">
+          <div class="cell-content">
+            <div class="circle"><span>28</span></div>
+            <div class="text-block">
+              <span class="destination">Fishermans Wharf</span>
+              <span class="times">{{ times_28_fw }}</span>
+            </div>
           </div>
-        </div>
-      </td>
-      <td class="no-left-border">
-        <div class="cell-content">
-          <div class="text-block">
-            <span class="destination">Daly City</span>
-            <span class="times">{{ times_28_dc }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td class="no-right-border">
+          <div class="cell-content">
+            <div class="circle"><span>L</span></div>
+            <div class="text-block">
+              <span class="destination">Embarcadero</span>
+              <span class="times">{{ times_L_em }}</span>
+            </div>
           </div>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td class="no-right-border">
-        <div class="cell-content">
-          <div class="circle"><span>L</span></div>
-          <div class="text-block">
-            <span class="destination">Embarcadero</span>
-            <span class="times">{{ times_L_em }}</span>
-          </div>
-        </div>
-      </td>
-      <td class="no-left-border">
-        <div class="cell-content">
-          <div class="text-block">
-            <span class="destination">SF Zoo</span>
-            <span class="times">{{ times_L_zoo }}</span>
-          </div>
-        </div>
-      </td>
-    </tr>
-  </table>
-
+        </td>
+      </tr>
+    </table>
+  </div>
 </body>
+
 </html>

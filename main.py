@@ -6,15 +6,17 @@ from muni import *
 from utils import *
 import platform
 
-# Check if running on a Raspberry Pi
 # Detect if running on a Raspberry Pi (and not macOS)
-on_raspberry_pi = (
-    platform.system() == "Linux" and 
-    (platform.machine().startswith("arm") or "raspberrypi" in platform.uname().node.lower())
-)
+on_raspberry_pi = platform.system() == "Linux"
+
+print(platform.system())
+print(platform.machine())
+print(platform.uname().node.lower())
 
 if on_raspberry_pi:
-    from einkUtils import display_image
+    from einkUtils import *
+
+    epd = init_epd()
 
 # Example usage of the function
 STOP_ID_L_OWL_WESTBOUND = '16616'
@@ -32,10 +34,10 @@ def main():
 
     # render muni stop
     formattedTimes = {
-        "times_L_zoo": get_formatted_arrival_times(get_muni_stop_data(STOP_ID_L_OWL_WESTBOUND)),
+        # "times_L_zoo": get_formatted_arrival_times(get_muni_stop_data(STOP_ID_L_OWL_WESTBOUND)),
         "times_L_em": get_formatted_arrival_times(get_muni_stop_data(STOP_ID_L_OWL_EASTBOUND)),
         "times_28_fw": get_formatted_arrival_times(get_muni_stop_data(STOP_ID_28_NORTHBOUND)),
-        "times_28_dc": get_formatted_arrival_times(get_muni_stop_data(STOP_ID_28_SOUTHBOUND)),
+        # "times_28_dc": get_formatted_arrival_times(get_muni_stop_data(STOP_ID_28_SOUTHBOUND)),
         "current_time": current_time  
     }
 
@@ -52,12 +54,13 @@ def main():
     image = render_muni_times_to_html(formattedTimes, debug=debug)
 
     if on_raspberry_pi and image:
-        display_image(image)
+        display_image(epd, image)
 
 # Loop forever on Pi, just once otherwise
 if on_raspberry_pi:
     while True:
         main()
-        time.sleep(60)
+        time.sleep(65)
 else:
     main()
+    print("Program Finished")
