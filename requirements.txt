@@ -1,0 +1,11 @@
+html2image
+jinja2
+Pillow
+requests
+WeasyPrint
+pdf2image
+pytz
+
+# Only install these on Raspberry Pi (Linux)
+spidev ; sys_platform == "linux"
+gpiozero ; sys_platform == "linux"

@@ -1,3 +1,4 @@
+import os
 import requests
 import json
 from types import SimpleNamespace
@@ -6,23 +7,26 @@ from utils import *
 muniApiKey = os.getenv("MUNI_API_KEY")
 
 def get_muni_stop_data(stop):
-    # Construct the API URL
-    url = f"https://api.511.org/transit/StopMonitoring?api_key={muniApiKey}&agency=SF&stopcode={stop}&format=json&MaximumStopVisits=10"
+    url = (
+        f"https://api.511.org/transit/StopMonitoring?"
+        f"api_key={muniApiKey}&agency=SF&stopcode={stop}&format=json&MaximumStopVisits=10"
+    )
     
-    # Send GET request to the API
-    response = requests.get(url)
-    
-    # Check for successful response
-    if response.status_code == 200:
-        # Parse JSON data
+    try:
+        response = requests.get(url, timeout=10)  # Timeout is optional but recommended
+        response.raise_for_status()  # Raise an error for HTTP 4xx/5xx
         response_text = response.content.decode('utf-8-sig')
         posts = json.loads(response_text, object_hook=lambda d: SimpleNamespace(**d))
-        
-        # Return the parsed data
         return posts
-    else:
-        print(f"Failed to retrieve data: {response.status_code}")
-        return None
+
+    except requests.exceptions.RequestException as e:
+        print(f"Network error when fetching stop {stop}: {e}")
+    except json.JSONDecodeError as e:
+        print(f"JSON parsing error for stop {stop}: {e}")
+    except Exception as e:
+        print(f"Unexpected error for stop {stop}: {e}")
+
+    return None
     
 def get_formatted_arrival_times(stops, max_visits=3):
     """
