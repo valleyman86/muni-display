@@ -29,8 +29,14 @@ def main():
     env = Environment(loader=FileSystemLoader('.'))
     template = env.get_template('hello.html')
 
-    pacific_now = datetime.now(ZoneInfo("America/Los_Angeles"))
-    current_time = pacific_now.strftime("%-I:%M %p") # e.g., 3:45 PM
+    pacific = pytz.timezone("America/Los_Angeles")
+    pacific_now = datetime.now(pacific)
+
+    current_time = pacific_now.strftime("%-I:%M %p")      # e.g., "3:45 PM"
+    current_date = pacific_now.strftime("%B %-d")         # e.g., "June 15"
+
+    # Example: "June 15 — 3:45 PM"
+    last_updated = f"{current_time} : {current_date}"
 
     # render muni stop
     formattedTimes = {
@@ -38,7 +44,7 @@ def main():
         "times_L_em": get_formatted_arrival_times(get_muni_stop_data(STOP_ID_L_OWL_EASTBOUND)),
         "times_28_fw": get_formatted_arrival_times(get_muni_stop_data(STOP_ID_28_NORTHBOUND)),
         # "times_28_dc": get_formatted_arrival_times(get_muni_stop_data(STOP_ID_28_SOUTHBOUND)),
-        "current_time": current_time  
+        "current_time": last_updated  
     }
 
     # formattedTimes = {

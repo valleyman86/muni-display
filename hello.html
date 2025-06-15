@@ -14,123 +14,97 @@
       font-weight: bold;
       background-color: white;
       color: black;
-      position: relative;
       margin: 0;
     }
 
     .last-updated {
-      position: static;
-      font-size: 20px;
-      font-weight: bold;
+      font-size: 28px;
       text-align: center;
-      margin: 8px 0 0px;
+      margin-top: 16px;
+      margin-bottom: 32px;
     }
 
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      margin: 20px auto;
+    h2 {
+      text-align: center;
+      font-size: 60px;
+      font-weight: bold;
+      margin: 24px 0 8px;
     }
 
-    td {
-      border-top: 3px solid black;
-      border-bottom: 3px solid black;
-      padding: 20px 8px;
-      vertical-align: middle;
+    .table-wrapper {
+      padding: 0 24px;
     }
 
-    .no-right-border {
-      border-right: none;
+    .entry {
+      margin-bottom: 60px;
+      text-align: left;
     }
 
-    .no-left-border {
-      border-left: none;
-    }
-
-    .cell-content {
+    .header-row {
       display: flex;
       align-items: center;
-      gap: 24px;
+      justify-content: flex-start; /* left-align content */
+      gap: 28px;
+      margin-bottom: 16px;
     }
 
     .circle {
-      width: 80px;
-      height: 80px;
+      width: 120px;
+      height: 120px;
       border-radius: 50%;
       background-color: black;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
+      aspect-ratio: 1;
     }
 
     .circle span {
       color: white;
-      font-size: 48px;
-      font-weight: bold;
+      font-size: 56px;
       font-family: 'Helvetica', Arial, sans-serif;
-      line-height: 1;
       transform: translateY(5px);
       display: inline-block;
     }
 
-    .text-block {
-      display: flex;
-      flex-direction: column;
-    }
-
     .destination {
-      font-size: 30px;
+      font-size: 42px;
       font-weight: normal;
-      color: black;
     }
 
     .times {
-      font-size: 34px;
+      font-size: 56px;
       font-weight: bold;
       color: black;
-      margin-top: 6px;
-    }
-
-    .table-wrapper {
-      padding: 0 16px;
-      /* adjust as needed for spacing */
+      margin-left: 148px; /* aligns with start of destination text */
     }
   </style>
 </head>
 
 <body>
-
-  <h2 style="text-align: center; font-size: 40px; font-weight: bold; margin: 16px 0 2px;">MUNI</h2>
+  <h2>MUNI</h2>
 
   <div class="last-updated">
     Last Updated: {{ current_time }}
   </div>
 
   <div class="table-wrapper">
-    <table>
-      <tr>
-        <td class="no-right-border">
-          <div class="cell-content">
-            <div class="circle"><span>28</span></div>
-            <div class="text-block">
-              <span class="destination">Fishermans Wharf</span>
-              <span class="times">{{ times_28_fw }}</span>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td class="no-right-border">
-          <div class="cell-content">
-            <div class="circle"><span>L</span></div>
-            <div class="text-block">
-              <span class="destination">Embarcadero</span>
-              <span class="times">{{ times_L_em }}</span>
-            </div>
-          </div>
-        </td>
-      </tr>
-    </table>
+    <div class="entry">
+      <div class="header-row">
+        <div class="circle"><span>28</span></div>
+        <div class="destination">Fishermans Wharf</div>
+      </div>
+      <div class="times">{{ times_28_fw }}</div>
+    </div>
+
+    <div class="entry">
+      <div class="header-row">
+        <div class="circle"><span>L</span></div>
+        <div class="destination">Embarcadero</div>
+      </div>
+      <div class="times">{{ times_L_em }}</div>
+    </div>
   </div>
 </body>
 
